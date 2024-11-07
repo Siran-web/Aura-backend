@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
+const User = require('./userModle');
 
 const conversationSchema =new mongoose.Schema({
-    members:{
-        type:Array
-    }
+    members:[{
+        type :mongoose.Schema.Types.ObjectId,
+        ref:User,
+        require:true
+    }]
 },
 {
     timestamps:true

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const conversation = require('./Conversation')
 
 const messageSchema = mongoose.Schema({
     conversationId:{
