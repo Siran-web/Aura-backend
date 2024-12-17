@@ -1,4 +1,4 @@
-const User = require('../modle/userModle');
+const User = require('../model/userModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -15,7 +15,7 @@ exports.register = async (req, res) => {
         const newUser =new User({fullName,userName,email,password: hashPassword});
         newUser.save();
         const token = jwt.sign({userId:newUser._id},process.env.JWT_SECRET_KEY);
-        res.status(200).json({message:"Succes",newUser,token: token});
+        res.status(200).json({message:"Succes",user: newUser,token: token});
     }
     catch (error) {
         console.log("error in registration");
@@ -33,7 +33,7 @@ exports.login = async (req, res) => {
         if (!isSame)
             return res.status(400).json({ message: "Invalid Password" });
         const token = jwt.sign({userId : user._id},process.env.JWT_SECRET_KEY);
-        return res.status(200).json({ message: "Succes login",token:token });
+        return res.status(200).json({ message: "Succes login",token:token,user:user });
 
     }
     catch (error) {

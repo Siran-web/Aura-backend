@@ -1,5 +1,5 @@
-const Message = require('../modle/messageModle');
-const Conversation = require('../modle/conversationModle');
+const Message = require('../model/messageModel');
+const Conversation = require('../model/conversationModel');
 
 exports.addMessage = async (req, res) => {
     try {

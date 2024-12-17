@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const User = require('./userModle');
+const User = require('./userModel');
 
 const conversationSchema =new mongoose.Schema({
     members:[{

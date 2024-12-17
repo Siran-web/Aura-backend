@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-const Conversation = require('../modle/conversationModle');
-const User = require('../modle/userModle');
+const Conversation = require('../model/conversationModel');
+const User = require('../model/userModel');
 
 exports.startConversation = async (req, res) => {
     try {
-        const { members } = req.body; 
+        const { members } = req.body;
 
         const membersArray = members.map((id) => new mongoose.Types.ObjectId(id));
 
@@ -48,3 +48,16 @@ exports.getUserConversations = async (req, res) => {
     }
 };
 
+exports.getConversation = async (req, res) => {
+    const { senderId, recId } = req.body;
+    const participants = [senderId, recId];
+    try {
+        let conversation = await Conversation.findOne({ members: { $all: participants } });
+        if (!conversation) {
+            conversation = await new Conversation({members: participants}).save();
+        }
+        res.send(conversation);
+    } catch (error) {
+        console.log("Error fetching or creating conversation:", error);
+    }
+}
